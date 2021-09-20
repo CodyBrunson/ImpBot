@@ -1,13 +1,11 @@
 {
 
-"version": "1.0",
-"token": "BOT_TOKEN_HERE",
+    "Version": "1.0",
+    "Token": "BOT_TOKEN_HERE",
+    "Prefix": "!",
 
-"prefixes": ["."],
-"join_message": "Hello, I'm Discord Bot! :heart:",
-
-"currently": "playing|listening|watching|streaming",
-"playing_status": "cool status here.",
-"status": "online|dnd|idle|offline"
+    "Currently": "Playing|Listening|Watching|Streaming",
+    "PlayStatus": "Cool status.",
+    "OnlineStatus": "Online|Dnd|Idle|Offline"
 
 }
