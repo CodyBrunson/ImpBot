@@ -13,6 +13,9 @@ namespace ImpBot.Modules
         [Command("ping")]
         [Summary("Show current latency.")]
         public async Task Ping()
-            => await ReplyAsync($"Latency: " + Context.Client.Latency + "ms");
+        {
+            Console.WriteLine("Ping requested by: " + Context.Client);
+            await ReplyAsync($"Latency: " + Context.Client.Latency + "ms");
+        }
     }
 }

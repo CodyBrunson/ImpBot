@@ -1,0 +1,11 @@
+{
+
+    "Version": "1.0",
+    "Token": "BOT_TOKEN_HERE",
+    "Prefix": "!",
+
+    "Currently": "Playing|Listening|Watching|Streaming",
+    "PlayStatus": "Cool status.",
+    "OnlineStatus": "Online|Dnd|Idle|Offline"
+
+}
