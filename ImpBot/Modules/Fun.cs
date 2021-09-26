@@ -10,6 +10,7 @@ namespace ImpBot.Modules
     {
         //Rolls dice in syntax #d##.  Example 1d20.
         [Command("roll")]
+        [Alias("r")]
         [Summary("Roll dice!")]
         public async Task Roll(String Dice)
         {
@@ -19,18 +20,6 @@ namespace ImpBot.Modules
             }
             catch (Exception ex) { await ReplyAsync("Unknown Error: " + ex.Message); }
 
-        }
-
-        //Rolls dice in syntax #d##.  Example 1d20.
-        [Command("r")]
-        [Summary("Roll dice!")]
-        public async Task R(string Dice)
-        {
-            try
-            {
-                await ReplyAsync(RollDice(Dice));
-            }
-            catch (Exception ex) { await ReplyAsync("Unknown Error: " + ex.Message); }
         }
 
         private static String RollDice(String Dice)
