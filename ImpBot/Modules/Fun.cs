@@ -8,6 +8,8 @@ namespace ImpBot.Modules
 {
     public class Fun : ModuleBase<SocketCommandContext>
     {
+        //This code is really bad and could be improved by using try catch and exceptions but didn't want to write it that way for now.  #Lazy?
+        //TODO: Re-write this code using try catch.
         [Command("roll")]
         [Summary("Roll dice!")]
         public async Task Roll(String Dice)
@@ -17,20 +19,35 @@ namespace ImpBot.Modules
                 await ReplyAsync("Incorrect syntax.  Example: 1d20");
                 return;
             }
-            List<String> Rolls = RollDice(Dice);
-            StringBuilder DiceString = new("Rolls: ");
-            foreach (var Roll in Rolls)
+            else
             {
-                if (Roll == Rolls[^1])
+                List<String> Rolls = RollDice(Dice);
+                StringBuilder DiceString = new("Rolls: ");
+                if (Rolls[0].Contains("dick"))
                 {
-                    DiceString.Append("- Total: " + Roll);
+                    await ReplyAsync("Don't be a dick...");
+                    return;
                 }
                 else
                 {
-                    DiceString.Append(Roll + " ");
+                    if (Rolls.Count != 2)
+                    {
+                        foreach (var Roll in Rolls)
+                        {
+                            if (Roll != Rolls[^1])
+                            {
+                                DiceString.Append(Roll + " ");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        DiceString.Append(Rolls[0] + " ");
+                    }
+                    DiceString.Append("- Total: " + Rolls[^1]);
+                    await ReplyAsync(DiceString.ToString());
                 }
             }
-            await ReplyAsync(DiceString.ToString());
             
         }
 
@@ -43,6 +60,12 @@ namespace ImpBot.Modules
                 int TypeOfDice = Convert.ToInt32(Dice.Substring(_index + 1));
                 int TotalRolled = 0;
                 List<String> Rolls = new();
+                if(AmountOfDice > 100)
+                {
+                    Rolls.Add("Don't be a dick...");
+                    Rolls.Add(" ");
+                    return Rolls;
+                }
 
                 for(int i = 0; i < AmountOfDice; i++)
                 {
