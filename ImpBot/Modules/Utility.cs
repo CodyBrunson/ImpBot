@@ -1,4 +1,5 @@
-﻿using Discord.Commands;
+﻿using Discord;
+using Discord.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,12 @@ namespace ImpBot.Modules
 {
     public class Utility : ModuleBase<SocketCommandContext>
     {
-
+        
         [Command("ping")]
         [Summary("Show current latency.")]
         public async Task Ping()
         {
-            Console.WriteLine("Ping requested by: " + Context.Client);
+            Console.WriteLine("Ping requested by: " + Context.User);
             await ReplyAsync($"Latency: " + Context.Client.Latency + "ms");
         }
     }

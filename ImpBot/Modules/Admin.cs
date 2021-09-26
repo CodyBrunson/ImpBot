@@ -13,7 +13,7 @@ namespace ImpBot.Modules
     {
 
         [Command("kick")]
-        [Summary("Kick a usr from the server.")]
+        [Summary("Kick a user from the server.")]
         [RequireBotPermission(GuildPermission.KickMembers)]
         [RequireUserPermission(GuildPermission.KickMembers)]
         public async Task Kick(SocketGuildUser Target, [Remainder] string Reason = "No reason provided.")
