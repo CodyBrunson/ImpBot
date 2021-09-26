@@ -8,80 +8,55 @@ namespace ImpBot.Modules
 {
     public class Fun : ModuleBase<SocketCommandContext>
     {
-        //This code is really bad and could be improved by using try catch and exceptions but didn't want to write it that way for now.  #Lazy?
-        //TODO: Re-write this code using try catch.
+        //Rolls dice in syntax #d##.  Example 1d20.
         [Command("roll")]
         [Summary("Roll dice!")]
         public async Task Roll(String Dice)
         {
-            if (!Dice.ToLower().Contains("d"))
+            try
             {
-                await ReplyAsync("Incorrect syntax.  Example: 1d20");
-                return;
+                await ReplyAsync(RollDice(Dice));
             }
-            else
-            {
-                List<String> Rolls = RollDice(Dice);
-                StringBuilder DiceString = new("Rolls: ");
-                if (Rolls[0].Contains("dick"))
-                {
-                    await ReplyAsync("Don't be a dick...");
-                    return;
-                }
-                else
-                {
-                    if (Rolls.Count != 2)
-                    {
-                        foreach (var Roll in Rolls)
-                        {
-                            if (Roll != Rolls[^1])
-                            {
-                                DiceString.Append(Roll + " ");
-                            }
-                        }
-                    }
-                    else
-                    {
-                        DiceString.Append(Rolls[0] + " ");
-                    }
-                    DiceString.Append("- Total: " + Rolls[^1]);
-                    await ReplyAsync(DiceString.ToString());
-                }
-            }
-            
+            catch (Exception ex) { await ReplyAsync("Unknown Error: " + ex.Message); }
+
         }
 
-        private List<String> RollDice(String Dice)
+        //Rolls dice in syntax #d##.  Example 1d20.
+        [Command("r")]
+        [Summary("Roll dice!")]
+        public async Task R(string Dice)
         {
             try
             {
-                int _index = Dice.IndexOf("d");
-                int AmountOfDice = Convert.ToInt32(Dice.Substring(0, _index));
-                int TypeOfDice = Convert.ToInt32(Dice.Substring(_index + 1));
-                int TotalRolled = 0;
-                List<String> Rolls = new();
-                if(AmountOfDice > 100)
-                {
-                    Rolls.Add("Don't be a dick...");
-                    Rolls.Add(" ");
-                    return Rolls;
-                }
-
-                for(int i = 0; i < AmountOfDice; i++)
-                {
-                    var Rolled = new Random().Next(1, TypeOfDice);
-                    Rolls.Add(Rolled.ToString());
-                    TotalRolled += Rolled;
-                }
-                Rolls.Add(TotalRolled.ToString());
-                return Rolls;
-
+                await ReplyAsync(RollDice(Dice));
             }
-            catch (Exception ex)
+            catch (Exception ex) { await ReplyAsync("Unknown Error: " + ex.Message); }
+        }
+
+        private static String RollDice(String Dice)
+        {
+            if (!Dice.ToLower().Contains("d")) return "Invalid roll syntax. Example: /r 1d20";
+
+            int _index = Dice.ToLower().IndexOf("d");
+            int DiceToRoll = Convert.ToInt32(Dice.Substring(_index + 1));
+
+            if (_index == 0) return "Roll: " + new Random().Next(1, DiceToRoll).ToString();
+
+            int AmountOfDice = Convert.ToInt32(Dice.Substring(0, _index));
+
+            if (AmountOfDice > 100) return "Don't be a dick...";
+            if(AmountOfDice == 1) return "Roll: " + new Random().Next(1, DiceToRoll).ToString();
+
+            StringBuilder RollString = new("Rolls: ");
+            int DiceTotal = 0;
+            for(int Roll = 1; Roll <= AmountOfDice; Roll += 1)
             {
-                throw;
+                int Rolled = new Random().Next(1, DiceToRoll);
+                RollString.Append(Rolled.ToString() + " ");
+                DiceTotal += Rolled;
             }
-
+            RollString.Append("- Total: " + DiceTotal);
+            return RollString.ToString();
         }
     }
 }
