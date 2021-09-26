@@ -58,5 +58,13 @@ namespace ImpBot.Modules
             RollString.Append("- Total: " + DiceTotal);
             return RollString.ToString();
         }
+
+        [Command("raid")]
+        [Summary("RAID? RAID? RAID? RAID?")]
+        public async Task Raid()
+        {
+            await ReplyAsync("Did someone say raid?");
+            await ReplyAsync($"https://tenor.com/view/raid-destiny-seagull-gif-19244751");
+        }
     }
 }
