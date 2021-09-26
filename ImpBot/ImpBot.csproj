@@ -8,11 +8,13 @@
   <ItemGroup>
     <PackageReference Include="Discord.Net" Version="2.4.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.36" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Exceptions\" />
     <None Remove="Media\" />
+    <None Remove="HtmlAgilityPack" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exceptions\" />
